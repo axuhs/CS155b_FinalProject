@@ -35,9 +35,9 @@ function createStartScene()
 	var light1 = createPointLight();
 	light1.position.set(0,200,20);
 	startScene.add(light1);
-	startCamera = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 0.1, 1000 );
-	startCamera.position.set(0,50,1);
-	startCamera.lookAt(0,0,0);
+	start = new THREE.Perspective( 90, window.innerWidth / window.innerHeight, 0.1, 1000 );
+	start.position.set(0,50,1);
+	start.lookAt(0,0,0);
 }
 //runs the end scenes
 function createEndScene()
@@ -55,9 +55,9 @@ function createEndScene()
 	light2.position.set(0,200,20);
 	endwonScene.add(light1);
 	endloseScene.add(light2);
-	endCamera = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 0.1, 1000 );
-	endCamera.position.set(0,50,1);
-	endCamera.lookAt(0,0,0);
+	end = new THREE.Perspective( 90, window.innerWidth / window.innerHeight, 0.1, 1000 );
+	end.position.set(0,50,1);
+	end.lookAt(0,0,0);
 }
 
 function init()
@@ -78,10 +78,10 @@ function createMainScene()
 	var light0 = new THREE.AmbientLight( 0xffffff,0.25);
 	scene.add(light0);
 
-	// create main camera
-	camera = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 0.1, 1000 );
-	camera.position.set(0,50,0);
-	camera.lookAt(0,0,0);
+	// create main
+	 = new THREE.Perspective( 90, window.innerWidth / window.innerHeight, 0.1, 1000 );
+	.position.set(0,50,0);
+	.lookAt(0,0,0);
 
 	// create the ground and the skybox
 	var ground = createGround('Soccer-Field.jpg');
@@ -103,17 +103,17 @@ function createMainScene()
 	var cubeMaterial = new THREE.MeshFaceMaterial( cubeMaterials );
 	var cube = new THREE.Mesh( geometry, cubeMaterial );
 	scene.add( cube );
-	// create the blue avatar, controls WASD to control him, button 2 for his camera
-	blueAvatarCam = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 0.1, 1000 );
+	// create the blue avatar, controls WASD to control him, button 2 for his
+	blueAvatarCam = new THREE.Perspective( 60, window.innerWidth / window.innerHeight, 0.1, 1000 );
 	blueAvatar = createBlueAvatar();
 	blueAvatar.translateY(20);
 	blueAvatar.translateX(-20);
 	blueAvatarCam.translateY(-4);
 	blueAvatarCam.translateZ(2);
 	scene.add(blueAvatar);
-	gameState.camera = blueAvatarCam;
-	//creates the red avatar, button 3 for his camera
-	redAvatarCam = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 0.1, 1000 );
+	gameState. = blueAvatarCam;
+	//creates the red avatar, button 3 for his
+	redAvatarCam = new THREE.Perspective( 60, window.innerWidth / window.innerHeight, 0.1, 1000 );
 	redAvatar = createRedAvatar();
 	redAvatar.translateY(20);
 	redAvatar.translateX(20);
@@ -140,63 +140,63 @@ function createMainScene()
     scene.add(redNetB);
     wall1 = createBoxMesh1('wall.png');
   	wall1.position.set(-48,0,12);
-  //	wall1.addEventListener('collision',
-  	//	function showEating (other_object)
-  	//	{
-  	//		if(other_object == redAvatar)
-  	//		{
-  	//			gameState.Redhealth -= 1;
-  	//		}
-  	//		if(other_object == blueAvatar)
-  	//		{
-  	//			gameState.Bluehealth -= 1;
-  	//	}
-  //	})
+	  wall1.addEventListener('collision',
+  		function showEating (other_object)
+  		{
+  			if(other_object == redAvatar)
+  			{
+  				gameState.Redhealth -= 1;
+  			}
+  		if(other_object == blueAvatar)
+  			{
+  				gameState.Bluehealth -= 1;
+  		}
+  	})
   	scene.add(wall1);
   	wall2 = createBoxMesh1('wall.png');
   	wall2.position.set(-48,0,-12);
-  //	wall2.addEventListener('collision',
-  	//	function showEating (other_object)
-  		//{
-  			//if(other_object == redAvatar)
-  			//{
-  		//		gameState.Redhealth -= 1;
-  		//	}
-  		//	if(other_object == blueAvatar)
-  		//	{
-  		//		gameState.Bluehealth -= 1;
-  	//	}
-  //	})
+  	wall2.addEventListener('collision',
+  		function showEating (other_object)
+  		{
+  			if(other_object == redAvatar)
+  			{
+  				gameState.Redhealth -= 1;
+  			}
+  			if(other_object == blueAvatar)
+  			{
+  				gameState.Bluehealth -= 1;
+  		}
+  	})
   	scene.add(wall2);
   	wall3 = createBoxMesh1('wall.png');
   	wall3.position.set(48,0,12);
-  //	wall3.addEventListener('collision',
-  	//	function showEating (other_object)
-  	//	{
-  	//		if(other_object == redAvatar)
-  	//		{
-  	//			gameState.Redhealth -= 1;
-  	//		}
-  	//		if(other_object == blueAvatar)
-  	//		{
-  	//			gameState.Bluehealth -= 1;
-  	//	}
-  //	})
+  	wall3.addEventListener('collision',
+  		function showEating (other_object)
+  		{
+  			if(other_object == redAvatar)
+  			{
+  				gameState.Redhealth -= 1;
+  			}
+  			if(other_object == blueAvatar)
+  			{
+  				gameState.Bluehealth -= 1;
+  		}
+  	})
   	scene.add(wall3);
   	wall4 = createBoxMesh1('wall.png');
   	wall4.position.set(48,0,-12);
-  //	wall4.addEventListener('collision',
-  //		function showEating (other_object)
-  //		{
-  //			if(other_object == redAvatar)
-  //			{
-  	//			gameState.Redhealth -= 1;
-  	//		}
-  	//		if(other_object == blueAvatar)
-  		//	{
-  			//	gameState.Bluehealth -= 1;
-  	//	}
-  //	})
+  	wall4.addEventListener('collision',
+  		function showEating (other_object)
+  		{
+  			if(other_object == redAvatar)
+  			{
+  				gameState.Redhealth -= 1;
+  			}
+  			if(other_object == blueAvatar)
+  			{
+  				gameState.Bluehealth -= 1;
+  		}
+  	})
   	scene.add(wall4);
   	goalie1 = createConeMesh2(0xffff00);
   	goalie1.position.set(-60,5,-4);
@@ -213,7 +213,7 @@ function createMainScene()
   				goalie1.position.set(-60,5,-4);
   			}
   		})
-  	//scene.add(goalie1);
+  	scene.add(goalie1);
   	goalie2 = createConeMesh2(0xffff00);
   	goalie2.position.set(60,5,4);
   	goalie2.addEventListener('collision',
@@ -229,7 +229,7 @@ function createMainScene()
   				goalie2.position.set(60,5,4);
   			}
   		})
-  	//scene.add(goalie2);
+  	scene.add(goalie2);
     rednpc = createBoxMesh(0xfa2a2a);
     bluenpc= createBoxMesh(0x44b4e2);
     rednpc.position.set(30,5,-30);
@@ -286,7 +286,7 @@ function createMainScene()
 				npc.position.set(randN(30), randN(20), randN(40));
 			}
 		})
-	//scene.add(npc);
+scene.add(npc);
   }
 
 function randN(n)
@@ -608,18 +608,20 @@ function keydown(event)
 	case "m": controls.speed = 30; break;
 	case " ": controls.fly = true; break;
 	case "h": controls.reset = true; break;
-//  case "e":
-  //{
-  //  redAvatar.__dirtyPosition = true;
-  //  blueAvatar.__dirtyPosition = true;
-  //  blueAvatar.position.set(0,0,0);
-//    redAvatar.position.set(0,0,0);
-  //  blueAvatar.translateY(15);
-  //	blueAvatar.translateX(-20);
-  //  redAvatar.translateY(15);
-  //	redAvatar.translateX(20);
-  //  break;
-//  }
+  case "e":
+  {
+    redAvatar.__dirtyPosition = true;
+    redAvatar.__dirtyRotation = true
+    blueAvatar.__dirtyPosition = true;
+    blueAvatar.__dirtyRotation = true;
+    blueAvatar.position.set(0,0,0);
+    redAvatar.position.set(0,0,0);
+    blueAvatar.translateY(15);
+  	blueAvatar.translateX(-20);
+    redAvatar.translateY(15);
+  	redAvatar.translateX(20);
+    break;
+  }
 
 	// switch cameras
 	case "1": gameState.camera = camera; break;
@@ -789,8 +791,8 @@ function animate()
     updateAvatarR(redAvatar);
     updateredNPC();
 		updateblueNPC();
-    //updateGoalie();
-		//updateNPC();
+    updateGoalie();
+		updateNPC();
 	    scene.simulate();
 		if (gameState.camera!= 'none')
 		{
