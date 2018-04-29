@@ -35,9 +35,9 @@ function createStartScene()
 	var light1 = createPointLight();
 	light1.position.set(0,200,20);
 	startScene.add(light1);
-	start = new THREE.Perspective( 90, window.innerWidth / window.innerHeight, 0.1, 1000 );
-	start.position.set(0,50,1);
-	start.lookAt(0,0,0);
+	startCamera = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 0.1, 1000 );
+	startCamera.position.set(0,50,1);
+	startCamera.lookAt(0,0,0);
 }
 //runs the end scenes
 function createEndScene()
@@ -55,9 +55,9 @@ function createEndScene()
 	light2.position.set(0,200,20);
 	endwonScene.add(light1);
 	endloseScene.add(light2);
-	end = new THREE.Perspective( 90, window.innerWidth / window.innerHeight, 0.1, 1000 );
-	end.position.set(0,50,1);
-	end.lookAt(0,0,0);
+	endCamera = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 0.1, 1000 );
+	endCamera.position.set(0,50,1);
+	endCamera.lookAt(0,0,0);
 }
 
 function init()
@@ -78,10 +78,10 @@ function createMainScene()
 	var light0 = new THREE.AmbientLight( 0xffffff,0.25);
 	scene.add(light0);
 
-	// create main
-	 = new THREE.Perspective( 90, window.innerWidth / window.innerHeight, 0.1, 1000 );
-	.position.set(0,50,0);
-	.lookAt(0,0,0);
+	// create main camera
+	camera = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 0.1, 1000 );
+	camera.position.set(0,50,0);
+	camera.lookAt(0,0,0);
 
 	// create the ground and the skybox
 	var ground = createGround('Soccer-Field.jpg');
@@ -103,17 +103,17 @@ function createMainScene()
 	var cubeMaterial = new THREE.MeshFaceMaterial( cubeMaterials );
 	var cube = new THREE.Mesh( geometry, cubeMaterial );
 	scene.add( cube );
-	// create the blue avatar, controls WASD to control him, button 2 for his
-	blueAvatarCam = new THREE.Perspective( 60, window.innerWidth / window.innerHeight, 0.1, 1000 );
+	// create the blue avatar, controls WASD to control him, button 2 for his camera
+	blueAvatarCam = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 0.1, 1000 );
 	blueAvatar = createBlueAvatar();
 	blueAvatar.translateY(20);
 	blueAvatar.translateX(-20);
 	blueAvatarCam.translateY(-4);
 	blueAvatarCam.translateZ(2);
 	scene.add(blueAvatar);
-	gameState. = blueAvatarCam;
-	//creates the red avatar, button 3 for his
-	redAvatarCam = new THREE.Perspective( 60, window.innerWidth / window.innerHeight, 0.1, 1000 );
+	gameState.camera = blueAvatarCam;
+	//creates the red avatar, button 3 for his camera
+	redAvatarCam = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 0.1, 1000 );
 	redAvatar = createRedAvatar();
 	redAvatar.translateY(20);
 	redAvatar.translateX(20);
@@ -138,6 +138,7 @@ function createMainScene()
     redNetB.rotateX(Math.PI/2);
     redNetB.rotateZ(Math.PI);
     scene.add(redNetB);
+
     wall1 = createBoxMesh1('wall.png');
   	wall1.position.set(-48,0,12);
 	  wall1.addEventListener('collision',
@@ -627,6 +628,7 @@ function keydown(event)
 	case "1": gameState.camera = camera; break;
 	case "2": gameState.camera = blueAvatarCam; break; //designate the cameras
 	case "3": gameState.camera = redAvatarCam; break; //designate the cameras
+
     case "ArrowLeft": controls.leftred = true;  break;
     case "ArrowRight": controls.rightred = true;  break;
     case "ArrowUp": controls.fwdred = true;  break;
@@ -786,7 +788,7 @@ function animate()
 			break;
 
 		case "main":
-    gameState.camera = camera;
+    //gameState.camera = camera;
     updateAvatarB(blueAvatar);
     updateAvatarR(redAvatar);
     updateredNPC();
